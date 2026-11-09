@@ -4,7 +4,7 @@
  * In the map, red is horizontal displacement and green is vertical; 128 means no shift.
  * Inside a bezel along each edge the value ramps quadratically away from 128, so content
  * near the rim of a panel is sampled from further inside it, as a curved glass edge would.
- * This is the same ramp as the nav bar on siddharthkhati.pages.dev, applied on both axes.
+ * The ramp runs on both axes, so all four edges bend.
  */
 
 export const MAX_BEZEL_PX = 22;
@@ -22,9 +22,9 @@ export function bezelRamp(length: number, maxBezel = MAX_BEZEL_PX): Uint8Clamped
 }
 
 /** RGBA pixels for a width × height map, ready for ImageData. */
-export function displacementPixels(width: number, height: number): Uint8ClampedArray<ArrayBuffer> {
-  const x = bezelRamp(width);
-  const y = bezelRamp(height);
+export function displacementPixels(width: number, height: number, maxBezel = MAX_BEZEL_PX): Uint8ClampedArray<ArrayBuffer> {
+  const x = bezelRamp(width, maxBezel);
+  const y = bezelRamp(height, maxBezel);
   const pixels = new Uint8ClampedArray(width * height * 4);
   let i = 0;
   for (let row = 0; row < height; row++) {

@@ -1,16 +1,23 @@
+import { GLASS_SELECTOR } from "./css.ts";
 import { displacementPixels } from "./displacement.ts";
-
-/** Floating panels that get refraction. The theme gives the same elements their frosted look. */
-export const GLASS_SELECTOR =
-  ".modal, .prompt, .menu, .suggestion-container, .popover.hover-popover, .notice, .status-bar";
+import { channelScales } from "./glass.ts";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
-/** Built maps are reused across panels of the same size; 24 sizes covers normal use. */
+/** Built maps are reused across panels of the same size and edge width; 24 covers normal use. */
 const MAP_CACHE_LIMIT = 24;
 
-/** Red, green and blue are displaced by different amounts, giving a faint colour fringe at the rim. */
-const CHANNEL_SCALES = [1, 0.9, 0.8] as const;
+/** Wait this long after the last edge-width change before redrawing maps, so dragging a slider stays smooth. */
+const REBUILD_DELAY_MS = 150;
+
+export interface RefractionOptions {
+  /** feDisplacementMap scale for the red channel. */
+  strength: number;
+  /** Width of the bending band along each edge, in px. */
+  bezel: number;
+  /** How far green and blue are scaled down from red, in percent per step. */
+  fringe: number;
+}
 
 interface Tracked {
   filter: SVGFilterElement;
@@ -33,9 +40,10 @@ export class Refractor {
   private readonly resizeObserver: ResizeObserver;
   private readonly mutationObserver: MutationObserver;
   private frame = 0;
+  private rebuildTimer = 0;
   private nextId = 0;
 
-  constructor(private readonly doc: Document, private strength: number) {
+  constructor(private readonly doc: Document, private options: RefractionOptions) {
     this.svg = this.svgElement("svg", { class: "lg-refraction-defs", "aria-hidden": "true", width: 0, height: 0 }) as SVGSVGElement;
     this.svg.style.cssText = "position:absolute;width:0;height:0;overflow:hidden;pointer-events:none";
     this.svg.appendChild(this.svgElement("defs", {}));
@@ -46,6 +54,14 @@ export class Refractor {
     this.mutationObserver = new MutationObserver((mutations) => this.onMutations(mutations));
   }
 
+  get panelCount(): number {
+    return this.tracked.size;
+  }
+
+  get cachedMaps(): number {
+    return this.mapCache.size;
+  }
+
   start(): void {
     this.doc.body.appendChild(this.svg);
     this.mutationObserver.observe(this.doc.body, { childList: true, subtree: true });
@@ -54,6 +70,7 @@ export class Refractor {
 
   stop(): void {
     cancelAnimationFrame(this.frame);
+    window.clearTimeout(this.rebuildTimer);
     this.mutationObserver.disconnect();
     this.resizeObserver.disconnect();
     for (const element of [...this.tracked.keys()]) this.untrack(element);
@@ -61,9 +78,20 @@ export class Refractor {
     this.mapCache.clear();
   }
 
-  setStrength(strength: number): void {
-    this.strength = strength;
+  setOptions(options: RefractionOptions): void {
+    const bezelChanged = options.bezel !== this.options.bezel;
+    this.options = options;
     for (const { maps } of this.tracked.values()) this.setScales(maps);
+    if (!bezelChanged) return;
+    window.clearTimeout(this.rebuildTimer);
+    this.rebuildTimer = window.setTimeout(() => {
+      this.mapCache.clear();
+      for (const [element, entry] of this.tracked) {
+        entry.width = 0;
+        entry.height = 0;
+        this.schedule(element);
+      }
+    }, REBUILD_DELAY_MS);
   }
 
   private onMutations(mutations: MutationRecord[]): void {
@@ -166,14 +194,15 @@ export class Refractor {
   }
 
   private mapUrl(width: number, height: number): string {
-    const key = `${width}x${height}`;
+    const { bezel } = this.options;
+    const key = `${width}x${height}@${bezel}`;
     const cached = this.mapCache.get(key);
     if (cached) return cached;
 
     const canvas = this.doc.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
-    canvas.getContext("2d")!.putImageData(new ImageData(displacementPixels(width, height), width, height), 0, 0);
+    canvas.getContext("2d")!.putImageData(new ImageData(displacementPixels(width, height, bezel), width, height), 0, 0);
     const url = canvas.toDataURL("image/png");
 
     if (this.mapCache.size >= MAP_CACHE_LIMIT) this.mapCache.delete(this.mapCache.keys().next().value!);
@@ -182,7 +211,8 @@ export class Refractor {
   }
 
   private setScales(maps: SVGFEDisplacementMapElement[]): void {
-    maps.forEach((map, i) => map.setAttribute("scale", String(Math.round(this.strength * CHANNEL_SCALES[i]))));
+    const scales = channelScales(this.options.strength, this.options.fringe);
+    maps.forEach((map, i) => map.setAttribute("scale", String(scales[i])));
   }
 
   private svgElement(tag: string, attributes: Record<string, string | number>): SVGElement {
