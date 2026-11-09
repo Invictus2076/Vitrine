@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["test", "src/glass.ts", "src/state.ts", "src/css.ts", "src/displacement.ts"]
+}
