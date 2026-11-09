@@ -1,10 +1,23 @@
-# Vitrine Blueprint
+# Vitrine
 
-Vitrine gives Obsidian frosted, refracting glass. It comes as a theme and a companion plugin. The theme draws everything and works on its own. The plugin adds presets and settings, refraction on floating panels and, on Windows, a translucent window that shows the desktop wallpaper blurred behind Obsidian.
+Frosted, refracting glass for Obsidian. A theme and a companion plugin that turn the window translucent and give menus, modals and the command palette glass edges.
+
+> [!NOTE]
+> Desktop only. The see-through window needs **Windows 11 22H2 or later** with transparency effects on. Mac and Linux get the glass panels but not the translucent window.
+
+## Features
+
+- **Glass panels.** The command palette, modals, menus, popovers, notices and the status bar are frosted, with a bright top edge and edges that bend what is behind them.
+- **Translucent window.** On Windows, your wallpaper shows through, blurred by the system (Acrylic, Mica or Mica Alt).
+- **Five presets and one Custom look.** Pick a ready-made look, or move any slider and your changes are saved as Custom.
+- **Dark and light mode.** Each has its own tint, highlight and outline, so both look right.
+- **Glass headings.** Choose which headings (H1 to H6 and the note title) get glass lettering, in editing view, reading view or both.
+- **Works without the plugin.** The theme alone gives you the Vitrine look. The plugin adds the presets, the settings, refraction and the window material.
+- **Easy on slower computers.** Use the Quiet preset, or switch refraction off.
 
 ## Install
 
-Vitrine isn't in Obsidian's community lists yet, so it is installed by hand.
+Vitrine isn't in Obsidian's community lists yet, so install it by hand.
 
 1. Open your vault folder, then the hidden `.obsidian` folder inside it.
 2. Copy `theme/Vitrine` into `.obsidian/themes/`, so you have `.obsidian/themes/Vitrine/theme.css`.
@@ -22,33 +35,43 @@ Pick one in **Settings → Vitrine → Preset**.
 
 | Preset | Look |
 |---|---|
-| Vitrine (default) | Balanced glass: clear window, frosted panels with a bright top edge and a light prism fringe. |
-| Clear | The most see-through: little blur, strong edge bending and bright highlights. Inspired by Apple's Liquid Glass. |
-| Frosted | Heavy blur and solid panels with no bending. Calm and very readable. Inspired by Windows acrylic. |
-| Soft | Medium blur, a thin light outline and gentle bending. Inspired by web glassmorphism. |
-| Quiet | Light blur and no bending. The cheapest look to draw, for slower computers. |
+| **Vitrine** (default) | Balanced glass: clear window, frosted panels with a bright top edge and a light prism fringe. |
+| **Clear** | The most see-through: little blur, strong edge bending and bright highlights. Inspired by Apple's Liquid Glass. |
+| **Frosted** | Heavy blur and solid panels with no bending. Calm and very readable. Inspired by Windows acrylic. |
+| **Soft** | Medium blur, a thin light outline and gentle bending. Inspired by web glassmorphism. |
+| **Quiet** | Light blur and no bending. The cheapest look to draw, for slower computers. |
 
-Turn on **Show advanced settings** to fine-tune a preset. The first slider you move saves your changes as **Custom (based on …)**. There is one Custom slot: starting from a different preset and moving a slider replaces it, and a notice says so. **Reset to preset** returns to the preset Custom started from, and Custom stays in the list.
+### Custom look
+
+Turn on **Show advanced settings** to fine-tune a preset. The first slider you move saves your changes as **Custom (based on …)**.
+
+- There is one Custom slot. If you start from a different preset and move a slider, it replaces the old Custom, and a notice tells you.
+- **Reset to preset** goes back to the preset your Custom started from. Custom stays in the list.
 
 ## Settings
 
 | Setting | What it does |
 |---|---|
-| Preset | One of the five looks above, or your Custom look |
-| Panel blur | Blur behind floating panels (the wallpaper blur is set by Windows) |
-| Saturation | How much colour comes through floating panels |
-| Corner radius | Rounding of large panels; menus and tabs follow it |
-| Refraction, Edge width, Colour fringe | How strongly, how wide and with how much prism split panel edges bend what is behind them |
-| Window tint | How much of the base colour covers the window background. Set separately for dark and light |
-| Panel tint | How solid floating panels are. Set separately for dark and light, with a minimum that keeps text readable |
-| Edge highlight, Edge ring | The light line along the top of panels and the thin outline around them. Set separately for dark and light |
-| Window material | Windows only: Acrylic (blurred wallpaper, default), Mica, Mica Alt or Off |
-| Refraction (Performance) | Switches refraction off for slower computers, whatever the preset says |
-| Heading 1–6, Note title, In editing view, In reading view | Which headings get glass lettering, and where |
-| Colour in the glass | Tints glass headings with a cyan-to-orange spectrum |
-| Copy diagnostics | Copies a short report about your setup for bug reports. Also a command. Nothing is sent anywhere |
+| **Preset** | One of the five looks above, or your Custom look |
+| **Panel blur** | Blur behind floating panels (the wallpaper blur is set by Windows) |
+| **Saturation** | How much colour comes through floating panels |
+| **Corner radius** | Rounding of large panels; menus and tabs follow it |
+| **Strength, Edge width, Colour fringe** | How strongly, how wide and with how much prism split panel edges bend what is behind them |
+| **Window tint** | How much of the base colour covers the window background. Set separately for dark and light |
+| **Panel tint** | How solid floating panels are. Set separately for dark and light, with a minimum that keeps text readable |
+| **Edge highlight, Edge ring** | The light line along the top of panels and the thin outline around them. Set separately for dark and light |
+| **Window material** | Windows only: Acrylic (blurred wallpaper, default), Mica, Mica Alt or Off |
+| **Refraction** (under Performance) | Switches refraction off for slower computers, whatever the preset says |
+| **Heading 1–6, Note title, In editing view, In reading view** | Which headings get glass lettering, and where |
+| **Colour in the glass** | Tints glass headings with a cyan-to-orange spectrum |
 
-The settings tab edits the dark or light values of whichever mode Obsidian is in.
+The mode-specific sliders edit the values of whichever mode Obsidian is in.
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| **Vitrine: Copy diagnostics** | Copies a short report about your setup for bug reports. Nothing is sent anywhere. Also a button in the settings tab. |
 
 ## Limits
 
@@ -57,46 +80,31 @@ The settings tab edits the dark or light values of whichever mode Obsidian is in
 - Mac and Linux get the theme, presets and refraction, but no window material. Pop-out windows stay solid and get no refraction.
 - Without the plugin, the theme uses the Vitrine preset's look with glass on H1, H2 and the note title.
 - Don't run it alongside other plugins that set the window material, such as Pseudo Mica or Translucent BG.
-- If something looks off after an Obsidian update, use **Copy diagnostics** and include the report in your bug report.
+- Only Obsidian 1.15.0 has been tested.
 
-## System Overview
+## Troubleshooting
 
-Two parts that Obsidian loads separately, joined by CSS:
+- **The window is solid, not see-through.** Check that Windows transparency effects are on and battery saver is off, and that **Window material** isn't set to Off. The settings tab shows a warning if Windows refused the material.
+- **The settings tab says Vitrine isn't active.** Select **Vitrine** under **Settings → Appearance → Themes**. The plugin needs the theme to draw anything.
+- **Text is hard to read on a bright wallpaper.** Raise **Window tint** and **Panel tint**, or pick Frosted.
+- **Something looks wrong after an Obsidian update.** Run **Copy diagnostics** and paste the report into your bug report.
 
-- **Theme** (`theme/Vitrine/theme.css`) does all the drawing. It makes Obsidian's panes clear over one tinted base, frosts the floating panels, and fills headings with a glass gradient. Wherever Obsidian documents a variable for a surface (`--modal-background`, `--status-bar-background`, `--workspace-background-translucent`, the tab and ribbon variables), it sets the variable rather than overriding the element.
-- **Plugin** (`plugin/vitrine`) never draws. It works out the look from the chosen preset or Custom values and passes it to the theme as `--vt-*` variables and body classes. It gives each floating panel an SVG displacement filter for refraction. On Windows it asks the OS for an acrylic or Mica window.
+## Building
 
-## Subdirectories & System Boundaries
+```bash
+cd plugin/vitrine
+npm install
+npm run build   # type checks, then writes main.js
+npm test        # runs the tests
+npm run dev     # rebuilds on every change
+```
 
-- plugin: [`./plugin/README.md`](./plugin/README.md). Holds the plugin package, `vitrine`: presets and settings, refraction on floating panels, the Windows window material and diagnostics.
-- theme/Vitrine: `theme.css` and `manifest.json`. It has no contract file of its own, because EGM bootstrap documents code folders and treats CSS as non-code. Its side of the plugin contract is listed under Global Invariants.
-- concepts_brief.md: the design brief this version was built from.
+How the theme and plugin fit together is in [ARCHITECTURE.md](./ARCHITECTURE.md).
 
-Each of `theme/Vitrine` and `plugin/vitrine` holds everything Obsidian's community lists need for its kind (manifest, LICENSE, and for the plugin `versions.json`). Obsidian lists themes and plugins from separate repositories with those files at the root, so each folder can be split into its own repository when it is submitted.
+## Acknowledgements
 
-## Global Invariants
+Setting the window material through Electron follows the approach of [Pseudo Mica](https://community.obsidian.md/plugins/pseudo-mica).
 
-- **Plugin–theme contract, version 2.** The theme sets `--vt-contract: 2` on `<body>`. The plugin warns in its settings tab when the value is missing (theme not active) or different (mismatched versions). The plugin writes:
-  - shared values: `--vt-blur`, `--vt-saturation`, `--vt-radius`;
-  - per mode: `--vt-dark-window-tint`, `--vt-dark-panel-tint`, `--vt-dark-highlight`, `--vt-dark-ring` and the same four `--vt-light-*` variables;
-  - the body classes `lg-plugin`, `lg-h1` to `lg-h6`, `lg-inline-title`, `lg-edit`, `lg-read`, `lg-spectrum`;
-  - `--lg-refract` on each floating panel.
+## License
 
-  The theme reads every `--vt-*` variable with a fallback, and picks the dark or light set inside `.theme-dark` and `.theme-light`, so switching mode needs nothing from the plugin.
-- **The theme's fallbacks equal the Vitrine preset.** Enabling the plugin with default settings changes nothing on screen. `plugin/vitrine/test/contract.test.ts` enforces this.
-- The theme's frosted-panel rule and the plugin's `GLASS_SELECTOR` list the same seven panels: `.modal`, `.prompt`, `.menu`, `.suggestion-container`, `.popover.hover-popover`, `.notice`, `.status-bar`. Enforced by the same test.
-- The theme, plugin, `package.json` and `versions.json` carry the same version number. Enforced by the same test.
-- The theme paints an opaque base only when `<body>` lacks `is-translucent`. The plugin adds that class only after Windows accepts the material.
-- Nothing published (manifests, theme) contains a personal web address. Enforced by the same test.
-
-## Global Side Effects
-
-- Changes the OS window material for Obsidian's main window while the plugin is enabled, and resets it to `none` when the plugin unloads.
-- Mutates `<body>`: classes, inline CSS variables and a hidden `<svg>` of filters.
-- Writes `data.json` in the plugin's folder through Obsidian's `saveData`, at most once per 600 ms of changes.
-- Copy diagnostics writes to the clipboard.
-
-## System Verification
-
-- Run: `cd plugin/vitrine && npm run build && npm test`
-- In Obsidian: work through the checklist in [`./plugin/vitrine/README.md`](./plugin/vitrine/README.md#manual-checks).
+[MIT](./LICENSE)
