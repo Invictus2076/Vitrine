@@ -75,7 +75,7 @@ body {
 .theme-light {
   --lg-base: #fbfbfd;
   --lg-surface: #ffffff;
-  --lg-window-tint: var(--vt-light-window-tint, 55%);
+  --lg-window-tint: var(--vt-light-window-tint, 70%);
   --lg-float-tint: var(--vt-light-panel-tint, 74%);
   --lg-highlight-top: rgb(255 255 255 / var(--vt-light-highlight, 85%));
   --lg-highlight-bottom: rgb(255 255 255 / calc(var(--vt-light-highlight, 85%) / 3));
@@ -92,12 +92,12 @@ body {
   --accent-l: 45%;
 
   --lg-text-glass: linear-gradient(180deg,
-      rgb(29 29 31 / 0.92) 0%,
-      rgb(29 29 31 / 0.86) 28%,
-      rgb(29 29 31 / 0.62) 48%,
-      rgb(29 29 31 / 0.48) 58%,
-      rgb(29 29 31 / 0.80) 84%,
-      rgb(29 29 31 / 0.86) 100%);
+      rgb(29 29 31 / 0.95) 0%,
+      rgb(29 29 31 / 0.90) 28%,
+      rgb(29 29 31 / 0.78) 48%,
+      rgb(29 29 31 / 0.68) 58%,
+      rgb(29 29 31 / 0.88) 84%,
+      rgb(29 29 31 / 0.92) 100%);
   --lg-text-glass-spectrum: linear-gradient(180deg,
       rgb(255 255 255 / 0.55) 0%,
       rgb(255 255 255 / 0) 50%,
@@ -139,6 +139,9 @@ body.lg-spectrum {
   --tab-background-active: var(--lg-wash-strong);
   /* Obsidian rounds the inner part of each tab with --tab-radius */
   --tab-radius: calc(var(--lg-radius) * 0.55);
+  /* The curved feet under the active tab are drawn in --tab-background-active; on a see-through
+     tab they show as grey blocks at the bottom corners, so they are turned off */
+  --tab-curve: 0px;
 
   --modal-background: var(--lg-panel-fill);
   --modal-radius: var(--lg-radius);

@@ -31,6 +31,9 @@ interface Tracked {
  * Gives every floating panel in one document its own SVG displacement filter and points the
  * panel's `--lg-refract` custom property at it. The theme puts that property into the panel's
  * `backdrop-filter`. Each panel needs its own filter because the map has to match its size.
+ *
+ * The filter also carries the blur: in a translucent Windows window, `blur()` alone draws nothing
+ * behind a panel, but the same blur works when the chain includes this filter, even at strength 0.
  */
 export class Refractor {
   private readonly tracked = new Map<HTMLElement, Tracked>();

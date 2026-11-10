@@ -31,8 +31,8 @@ export function formatDiagnostics(d: DiagnosticsInput): string {
     `Colour scheme: ${d.colourScheme}`,
     `Theme: ${d.theme.state}${d.theme.contract ? ` (contract ${d.theme.contract})` : ""}`,
     `Window material: ${d.material.requested}, status ${d.material.status}, is-translucent ${d.material.translucentClass ? "yes" : "no"}${d.material.addedByVitrine ? " (added by Vitrine)" : ""}`,
-    `Look: ${look}, refraction switch ${d.settings.refractionEnabled ? "on" : "off"}`,
-    `Refraction: ${d.refraction.running ? `running; panels tracked: ${d.refraction.panels}; maps cached: ${d.refraction.cachedMaps}` : "stopped"}`,
+    `Look: ${look}, refraction switch ${d.settings.refractionEnabled ? "on" : "off"}, panel blur switch ${d.settings.panelBlur ? "on" : "off"}`,
+    `Panel filter: ${d.refraction.running ? `running; panels tracked: ${d.refraction.panels}; maps cached: ${d.refraction.cachedMaps}` : "stopped"}`,
     `Values in use: ${JSON.stringify(d.effective)}`,
     `Headings: ${JSON.stringify(d.settings.headings)}`,
   ];

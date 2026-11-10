@@ -7,7 +7,7 @@ How the theme and the plugin fit together, what must stay true, and how to check
 Two parts that Obsidian loads separately, joined by CSS:
 
 - **Theme** (`theme/Vitrine/theme.css`) does all the drawing. It makes Obsidian's panes clear over one tinted base, frosts the floating panels, and fills headings with a glass gradient. Wherever Obsidian documents a variable for a surface (`--modal-background`, `--status-bar-background`, `--workspace-background-translucent`, the tab and ribbon variables), it sets the variable rather than overriding the element.
-- **Plugin** (`plugin/vitrine`) never draws. It works out the look from the chosen preset or Custom values and passes it to the theme as `--vt-*` variables and body classes. It gives each floating panel an SVG displacement filter for refraction. On Windows it asks the OS for an acrylic or Mica window.
+- **Plugin** (`plugin/vitrine`) never draws. It works out the look from the chosen preset or Custom values and passes it to the theme as `--vt-*` variables and body classes. It gives each floating panel an SVG filter that carries the refraction and, in a translucent window, the blur too: without an SVG filter in the chain the browser draws no blur behind a panel there. On Windows it asks the OS for an acrylic or Mica window.
 
 ## Subdirectories & System Boundaries
 

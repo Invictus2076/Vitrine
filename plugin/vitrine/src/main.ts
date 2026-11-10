@@ -1,5 +1,6 @@
 import { Notice, Platform, Plugin, apiVersion, debounce } from "obsidian";
 import { CONTRACT_VERSION, GLASS_VARIABLE_NAMES, HEADING_CLASS_NAMES, glassVariables, headingClasses } from "./css.ts";
+import { needsPanelFilter } from "./glass.ts";
 import { formatDiagnostics, type ThemeState } from "./diagnostics.ts";
 import { Refractor, type RefractionOptions } from "./refraction.ts";
 import { VitrineSettingTab } from "./settings-tab.ts";
@@ -56,10 +57,10 @@ export default class VitrinePlugin extends Plugin {
     // Refraction waits for the layout, so its first scan finds the status bar
     if (!this.app.workspace.layoutReady) return;
     const options: RefractionOptions = { strength: values.refraction, bezel: values.bezel, fringe: values.fringe };
-    if (options.strength > 0 && !this.refractor) {
+    if (needsPanelFilter(values) && !this.refractor) {
       this.refractor = new Refractor(document, options);
       this.refractor.start();
-    } else if (options.strength > 0) {
+    } else if (needsPanelFilter(values)) {
       this.refractor!.setOptions(options);
     } else if (this.refractor) {
       this.refractor.stop();

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { PRESETS } from "../src/glass.ts";
+import { PRESETS, needsPanelFilter } from "../src/glass.ts";
 import {
   SCHEMA_VERSION, defaultSettings, editValue, effectiveValues, loadSettings, resetToBase, selectCustom, selectPreset,
 } from "../src/state.ts";
@@ -95,4 +95,22 @@ test("effective values apply the floors and the refraction switch", () => {
   s = { ...s, refractionEnabled: false };
   assert.equal(effectiveValues(s).refraction, 0);
   assert.equal(s.custom?.values.refraction, PRESETS.vitrine.values.refraction, "the saved value is kept");
+});
+
+test("panel blur is on by default and can be switched off without losing the saved value", () => {
+  assert.equal(defaultSettings().panelBlur, true);
+  assert.equal(loadSettings({ schemaVersion: 2 }).panelBlur, true);
+  assert.equal(loadSettings({ schemaVersion: 2, panelBlur: "no" }).panelBlur, true);
+  const off = loadSettings({ schemaVersion: 2, look: "frosted", panelBlur: false });
+  assert.equal(off.panelBlur, false);
+  assert.equal(effectiveValues(off).blur, 0);
+  assert.equal(effectiveValues({ ...off, panelBlur: true }).blur, PRESETS.frosted.values.blur);
+});
+
+test("every preset blurs, so every preset goes through the panel filter by default", () => {
+  for (const id of Object.keys(PRESETS) as (keyof typeof PRESETS)[]) {
+    assert.equal(needsPanelFilter(effectiveValues(selectPreset(defaultSettings(), id))), true, id);
+  }
+  const bare = effectiveValues({ ...defaultSettings(), refractionEnabled: false, panelBlur: false });
+  assert.equal(needsPanelFilter(bare), false);
 });

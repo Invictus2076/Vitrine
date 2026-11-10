@@ -13,7 +13,7 @@ Frosted, refracting glass for Obsidian. A theme and a companion plugin that turn
 - **Dark and light mode.** Each has its own tint, highlight and outline, so both look right.
 - **Glass headings.** Choose which headings (H1 to H6 and the note title) get glass lettering, in editing view, reading view or both.
 - **Works without the plugin.** The theme alone gives you the Vitrine look. The plugin adds the presets, the settings, refraction and the window material.
-- **Easy on slower computers.** Use the Quiet preset, or switch refraction off.
+- **Easy on slower computers.** Use the Quiet preset, or switch panel blur and refraction off.
 
 ## Install
 
@@ -61,6 +61,7 @@ Turn on **Show advanced settings** to fine-tune a preset. The first slider you m
 | **Panel tint** | How solid floating panels are. Set separately for dark and light, with a minimum that keeps text readable |
 | **Edge highlight, Edge ring** | The light line along the top of panels and the thin outline around them. Set separately for dark and light |
 | **Window material** | Windows only: Acrylic (blurred wallpaper, default), Mica, Mica Alt or Off |
+| **Panel blur** (under Performance) | Switches the blur behind panels off for slower computers, whatever the preset says. On by default in every preset |
 | **Refraction** (under Performance) | Switches refraction off for slower computers, whatever the preset says |
 | **Heading 1–6, Note title, In editing view, In reading view** | Which headings get glass lettering, and where |
 | **Colour in the glass** | Tints glass headings with a cyan-to-orange spectrum |
@@ -86,6 +87,7 @@ The mode-specific sliders edit the values of whichever mode Obsidian is in.
 
 - **The window is solid, not see-through.** Check that Windows transparency effects are on and battery saver is off, and that **Window material** isn't set to Off. The settings tab shows a warning if Windows refused the material.
 - **The settings tab says Vitrine isn't active.** Select **Vitrine** under **Settings → Appearance → Themes**. The plugin needs the theme to draw anything.
+- **Text behind a panel shows through sharp.** Check that **Panel blur** is on under Performance. If it is, run **Copy diagnostics** and include the report in a bug report.
 - **Text is hard to read on a bright wallpaper.** Raise **Window tint** and **Panel tint**, or pick Frosted.
 - **Something looks wrong after an Obsidian update.** Run **Copy diagnostics** and paste the report into your bug report.
 

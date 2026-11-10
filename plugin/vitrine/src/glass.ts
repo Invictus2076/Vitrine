@@ -87,7 +87,7 @@ export const PRESETS: Record<PresetId, Preset> = {
     values: {
       blur: 24, saturation: 180, radius: 18, refraction: 30, bezel: 22, fringe: 10,
       dark: { windowTint: 18, panelTint: 74, highlight: 22, ring: 10 },
-      light: { windowTint: 55, panelTint: 74, highlight: 85, ring: 10 },
+      light: { windowTint: 70, panelTint: 74, highlight: 85, ring: 10 },
     },
   },
   clear: {
@@ -163,6 +163,15 @@ export function applyFloors(values: GlassValues): GlassValues {
     }
   }
   return out;
+}
+
+/**
+ * Whether panels go through the SVG filter. They do when they bend or blur. The blur needs it too:
+ * in a translucent Windows window the browser draws no blur behind a panel unless the panel's
+ * backdrop filter includes an SVG filter, so a zero-strength filter is applied just to carry it.
+ */
+export function needsPanelFilter(values: GlassValues): boolean {
+  return values.refraction > 0 || values.blur > 0;
 }
 
 /** Displacement scales for the red, green and blue copies. */

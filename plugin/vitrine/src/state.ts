@@ -34,6 +34,8 @@ export interface VitrineSettings {
   material: Material;
   /** Master switch for refraction, outside the presets, for slower computers. */
   refractionEnabled: boolean;
+  /** Master switch for the blur behind panels, outside the presets, for slower computers. */
+  panelBlur: boolean;
   headings: HeadingSettings;
   showAdvanced: boolean;
 }
@@ -47,6 +49,7 @@ export function defaultSettings(): VitrineSettings {
     custom: null,
     material: "acrylic",
     refractionEnabled: true,
+    panelBlur: true,
     headings: {
       levels: { 1: true, 2: true, 3: false, 4: false, 5: false, 6: false },
       noteTitle: true,
@@ -144,6 +147,7 @@ export function loadSettings(saved: unknown): VitrineSettings {
     custom,
     material: MATERIALS.includes(data.material as Material) ? (data.material as Material) : defaults.material,
     refractionEnabled: bool(data.refractionEnabled, defaults.refractionEnabled),
+    panelBlur: bool(data.panelBlur, defaults.panelBlur),
     headings: {
       levels,
       noteTitle: bool(rawHeadings.noteTitle, defaults.headings.noteTitle),
@@ -161,10 +165,11 @@ export function chosenValues(settings: VitrineSettings): GlassValues {
   return PRESETS[settings.look === "custom" ? DEFAULT_PRESET : settings.look].values;
 }
 
-/** The values to draw: chosen values, raised to the readability floors, with refraction off if switched off. */
+/** The values to draw: chosen values, raised to the readability floors, with refraction and blur off if switched off. */
 export function effectiveValues(settings: VitrineSettings): GlassValues {
   const values = applyFloors(chosenValues(settings));
   if (!settings.refractionEnabled) values.refraction = 0;
+  if (!settings.panelBlur) values.blur = 0;
   return values;
 }
 
