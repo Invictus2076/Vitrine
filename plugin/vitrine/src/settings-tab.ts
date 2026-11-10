@@ -83,6 +83,14 @@ export class VitrineSettingTab extends PluginSettingTab {
 
     new Setting(containerEl).setName("Performance").setHeading();
     new Setting(containerEl)
+      .setName("Panel blur")
+      .setDesc("Blur what is behind panels. Turn off on slower computers; the rest of the look stays.")
+      .addToggle((toggle) =>
+        toggle.setValue(plugin.settings.panelBlur).onChange((value) => {
+          plugin.update({ ...plugin.settings, panelBlur: value });
+        }),
+      );
+    new Setting(containerEl)
       .setName("Refraction")
       .setDesc("Bend what is behind panels at their edges. Turn off on slower computers; the rest of the look stays.")
       .addToggle((toggle) =>
