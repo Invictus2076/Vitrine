@@ -14,6 +14,7 @@ Two parts that Obsidian loads separately, joined by CSS:
 - plugin: [`./plugin/README.md`](./plugin/README.md). Holds the plugin package, `vitrine`: presets and settings, refraction on floating panels, the Windows window material and diagnostics.
 - theme/Vitrine: `theme.css` and `manifest.json`. It has no contract file of its own, because EGM bootstrap documents code folders and treats CSS as non-code. Its side of the plugin contract is listed under Global Invariants.
 - concepts_brief.md: the design brief this version was built from.
+- tools: `split-release-repos.sh` builds the two repositories Obsidian's community lists need, `vitrine-plugin` and `vitrine-theme`, from `plugin/vitrine` and `theme/Vitrine`, with the user-facing READMEs from `tools/release`. This repository stays the place where the work is done and where the plugin–theme contract test runs; the two release repositories are produced from it.
 
 Each of `theme/Vitrine` and `plugin/vitrine` holds everything Obsidian's community lists need for its kind (manifest, LICENSE, and for the plugin `versions.json`). Obsidian lists themes and plugins from separate repositories with those files at the root, so each folder can be split into its own repository when it is submitted.
 
