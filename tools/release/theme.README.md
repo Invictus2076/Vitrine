@@ -1,6 +1,6 @@
 # Vitrine
 
-Frosted, refracting glass for Obsidian. A theme that makes the command palette, modals, menus and the status bar glass, with a bright top edge, and gives large headings glass lettering.
+Frosted, translucent and refracting glass for Obsidian. A theme that makes the command palette, modals, menus and the status bar like liquid glass, with a bright top edge, and gives large headings glass lettering.
 
 > [!NOTE]
 > Desktop only. For presets, the see-through Windows window and refraction at panel edges, add the [Vitrine plugin](https://github.com/Invictus2076/vitrine-plugin). The theme works on its own too.
