@@ -27,4 +27,6 @@ theme="$here/theme/Vitrine"
 cp "$theme/LICENSE" "$theme/manifest.json" "$theme/theme.css" "$out/vitrine-theme/"
 cp "$here/tools/release/theme.README.md" "$out/vitrine-theme/README.md"
 [ -f "$here/tools/release/screenshot.png" ] && cp "$here/tools/release/screenshot.png" "$out/vitrine-theme/screenshot.png"
+# Images the theme README shows
+[ -d "$here/tools/release/img" ] && cp -r "$here/tools/release/img" "$out/vitrine-theme/img"
 echo "wrote $out/vitrine-plugin and $out/vitrine-theme"
